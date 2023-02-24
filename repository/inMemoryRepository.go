@@ -8,11 +8,16 @@ import (
 
 type InMemoryRepository struct {
 	urlDictionary map[string]string
+	reverseLookUp map[string]string
 	domainTracker map[string]int
 }
 
 func NewInMemoryRepository() *InMemoryRepository {
-	return &InMemoryRepository{urlDictionary: make(map[string]string), domainTracker: make(map[string]int)}
+	return &InMemoryRepository{
+		urlDictionary: make(map[string]string),
+		reverseLookUp: make(map[string]string),
+		domainTracker: make(map[string]int),
+	}
 }
 
 func (r *InMemoryRepository) Store(shortUrl, original string) error {
@@ -21,6 +26,7 @@ func (r *InMemoryRepository) Store(shortUrl, original string) error {
 	}
 
 	r.urlDictionary[shortUrl] = original
+	r.reverseLookUp[original] = shortUrl
 	return nil
 }
 
@@ -34,6 +40,18 @@ func (r *InMemoryRepository) Get(shortUrl string) (string, error) {
 	}
 
 	return "", fmt.Errorf("no url mapped for the given short url : %s", shortUrl)
+}
+
+func (r *InMemoryRepository) GetPreviousShortenedIfExist(original string) (string, error) {
+	if err := r.isRepoInitialized(); err != nil {
+		return "", err
+	}
+
+	if result, ok := r.reverseLookUp[original]; ok {
+		return result, nil
+	}
+
+	return "", fmt.Errorf("no url mapped for the given url : %s", original)
 }
 
 func (r *InMemoryRepository) GetTopShortedDomains() (map[string]int, error) {
@@ -82,7 +100,7 @@ func (r *InMemoryRepository) AddDomain(domain string) error {
 }
 
 func (r *InMemoryRepository) isRepoInitialized() error {
-	if r == nil || r.domainTracker == nil || r.urlDictionary == nil {
+	if r == nil || r.domainTracker == nil || r.urlDictionary == nil || r.reverseLookUp == nil {
 		return fmt.Errorf("repository not initialized")
 	}
 
