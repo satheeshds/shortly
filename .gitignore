@@ -1,0 +1,14 @@
+vendor/
+**/*.log
+.idea/
+bin/
+tmp/
+.vscode/
+.env
+**/.DS_Store
+*.pid
+coverage
+coverage.data
+dist/
+generated/
+.vendor/
