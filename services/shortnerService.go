@@ -44,6 +44,14 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 	return shortUrl, err
 }
 
+func (s *ShortnerService) GetRedirectURL(shortUrl string) (string, error) {
+	return s.repo.Get(shortUrl)
+}
+
+func (s *ShortnerService) GetTopShortedDomains() (map[string]int, error) {
+	return s.repo.GetTopShortedDomains()
+}
+
 func generateRandomId() string {
 	// Generate a random short ID
 	rand.Seed(time.Now().UnixNano())
