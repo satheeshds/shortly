@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"math/rand"
 	"net/url"
 	"time"
@@ -29,9 +28,8 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 	}
 
 	shortId := generateRandomId()
-	shortUrl := fmt.Sprintf("https://short.ly/%s", shortId)
 
-	err = s.Repo.Store(shortUrl, original)
+	err = s.Repo.Store(shortId, original)
 	if err != nil {
 		return "", err
 	}
@@ -41,7 +39,7 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 		return "", err
 	}
 
-	return shortUrl, err
+	return shortId, err
 }
 
 func (s *ShortnerService) GetRedirectURL(shortUrl string) (string, error) {
