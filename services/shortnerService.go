@@ -10,7 +10,7 @@ import (
 )
 
 type ShortnerService struct {
-	repo interfaces.IShortnerRepository
+	Repo interfaces.IShortnerRepository
 }
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -22,7 +22,7 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 		return "", err
 	}
 
-	prev, err := s.repo.GetPreviousShortenedIfExist(original)
+	prev, err := s.Repo.GetPreviousShortenedIfExist(original)
 	if err == nil {
 		// do we need to increment the counter if the same url shortened several times.
 		return prev, nil
@@ -31,12 +31,12 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 	shortId := generateRandomId()
 	shortUrl := fmt.Sprintf("https://short.ly/%s", shortId)
 
-	err = s.repo.Store(shortUrl, original)
+	err = s.Repo.Store(shortUrl, original)
 	if err != nil {
 		return "", err
 	}
 
-	err = s.repo.AddDomain(domain)
+	err = s.Repo.AddDomain(domain)
 	if err != nil {
 		return "", err
 	}
@@ -45,11 +45,11 @@ func (s *ShortnerService) ShortURL(original string) (string, error) {
 }
 
 func (s *ShortnerService) GetRedirectURL(shortUrl string) (string, error) {
-	return s.repo.Get(shortUrl)
+	return s.Repo.Get(shortUrl)
 }
 
 func (s *ShortnerService) GetTopShortedDomains() (map[string]int, error) {
-	return s.repo.GetTopShortedDomains()
+	return s.Repo.GetTopShortedDomains()
 }
 
 func generateRandomId() string {
