@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.9.0
+	github.com/golang/mock v1.6.0
 	github.com/satheeshds/shortly/controllers v0.0.0-00010101000000-000000000000
 	github.com/satheeshds/shortly/services v0.0.0-00010101000000-000000000000
 	github.com/swaggo/gin-swagger v1.5.3
@@ -41,7 +42,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/satheeshds/shortly/interfaces v0.0.0-00010101000000-000000000000 // indirect
 	github.com/swaggo/files v1.0.0
-	github.com/swaggo/swag v1.8.1 // indirect
+	github.com/swaggo/swag v1.8.1
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.10 // indirect
 	golang.org/x/arch v0.2.0 // indirect
