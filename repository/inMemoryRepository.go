@@ -21,6 +21,10 @@ func NewInMemoryRepository() *InMemoryRepository {
 }
 
 func (r *InMemoryRepository) Store(shortUrl, original string) error {
+	if err := r.isRepoInitialized(); err != nil {
+		return err
+	}
+
 	if existing, ok := r.urlDictionary[shortUrl]; ok {
 		return fmt.Errorf("%s already mapped with %s value", shortUrl, existing)
 	}

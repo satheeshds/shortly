@@ -26,7 +26,8 @@ func main() {
 
 	shortController := &controllers.ShortnerController{
 		Service: &services.ShortnerService{
-			Repo: repository.NewInMemoryRepository(),
+			//Repo: repository.NewInMemoryRepository(),
+			Repo: repository.NewRedisRepository(),
 		},
 	}
 

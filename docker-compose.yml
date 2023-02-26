@@ -8,3 +8,10 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 80:8080
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis:6379
+
+  redis:
+    image: redis:latest
