@@ -10,14 +10,14 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title           Swagger Shortner API
+// @title           Shortner API
 // @version         1.0
 // @description     This is a sample url shortner server.
 
 // @contact.name   satheesh ds
 // @contact.email  davidsonsatheesh@gmail.com
 
-// @host      localhost:8080
+// @host      localhost
 // @BasePath  /api/v1
 
 func main() {
